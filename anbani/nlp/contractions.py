@@ -19,14 +19,9 @@ def expand(word):
 
 def expand_text(text):
     # Look up contractions sequentially and replace them with expansions
-    while True:
-        match = re.search(r'([ა-ჿ]+\.(?:[ა-ჿ]+\.)*)', text)
-        if not bool(match):
-            break
-
-        expansion = expand(text[match.start():match.end()])
-        text = text[:match.start()] + expansion + text[match.end():]
-
+    matches = re.findall(r'([ა-ჿ]+\.(?:[ა-ჿ]+\.)*)', text)
+    for match in matches:
+       text = re.sub(match, expand(match), text)
     return text
 
 
